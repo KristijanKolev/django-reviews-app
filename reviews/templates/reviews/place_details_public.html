@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ place.name }}</title>
+</head>
+<body>
+<h3>{{ place.name }} - {{ place.average_review_score }}</h3>
+<ul>
+    {% for review in place.review_set.all %}
+        <li>
+            <strong>{{ review.score }}</strong>
+            : {{ review.comment }}
+        </li>
+    {% endfor %}
+</ul>
+</body>
+</html>
