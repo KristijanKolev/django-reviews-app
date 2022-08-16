@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<form action="{% url 'user_management:login' %}" method="post">
+    {% csrf_token %}
+    <input name="success_redirect_url" value="{{ success_redirect_url }}" hidden/>
+    <div>
+        <label for="username">Username: </label>
+        <input type="text" name="username" id="username"/>
+    </div>
+    <div>
+        <label for="password">Password: </label>
+        <input type="password" name="password" id="password"/>
+    </div>
+    <div>
+        <input type="submit" value="Sign In" />
+    </div>
+</form>
+{% if error_message %}
+    <div style="color: red">{{ error_message }}</div>
+{% endif %}
+</body>
+</html>

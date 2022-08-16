@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.conf import settings
 
 # Create your models here.
 
@@ -17,6 +18,10 @@ class Place(models.Model):
 
 
 class Review(models.Model):
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE
+    )
     score = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
     comment = models.CharField(max_length=500)
     place = models.ForeignKey(Place, on_delete=models.CASCADE)
