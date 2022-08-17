@@ -1,18 +1,47 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'fa/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'reviews/place_details_public.css' %}">
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
     <title>{{ place.name }}</title>
 </head>
 <body>
-<h3>{{ place.name }} - {{ place.average_review_score }}</h3>
-<ul>
+<div id="title-row">
+    <h3>
+        {{ place.name }} - <span class="badge badge-secondary">{{ place.average_review_score }}</span>
+    </h3>
+    <h4 class="text-secondary">
+        {{ place.description }}
+    </h4>
+</div>
+<div class="mx-3">
+    <h5>Reviews:</h5>
     {% for review in place.review_set.all %}
-        <li>
-            <strong>{{ review.score }}</strong>
-            : {{ review.comment }}
-        </li>
+        <div class="border border-secondary p-2 m-2">
+            <div>
+                <strong>
+                    {% if review.author.first_name and review.author.last_name %}
+                        {{ review.author.first_name }} {{ review.author.last_name }}
+                    {% else %}
+                        {{ review.author.username }}
+                    {% endif %}
+                </strong>
+                <span class="badge badge-primary">{{ review.score }}</span>
+            </div>
+            <div>
+                {{ review.comment }}
+            </div>
+        </div>
     {% endfor %}
-</ul>
+</div>
+<div>
+
+</div>
 </body>
 </html>
