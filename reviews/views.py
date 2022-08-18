@@ -33,5 +33,11 @@ def leave_review(request, pk):
                                 author=request.user)
         return HttpResponseRedirect(reverse('reviews:place_details_public', args=(place.id,)))
     else:
-        # TODO: Implement error message
-        pass
+        context = {
+            'place': place,
+            'review_form': form
+        }
+
+        return render(request, 'reviews/place_details_public.html', context)
+
+
