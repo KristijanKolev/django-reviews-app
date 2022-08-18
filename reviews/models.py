@@ -14,7 +14,8 @@ class Place(models.Model):
         return self.name
 
     def average_review_score(self):
-        return sum(review.score for review in self.review_set.all()) / self.review_set.count()
+        return sum(review.score for review in
+                   self.review_set.all()) / self.review_set.count() if self.review_set.count() > 0 else None
 
 
 class Review(models.Model):
