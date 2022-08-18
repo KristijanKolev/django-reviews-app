@@ -40,8 +40,14 @@
         </div>
     {% endfor %}
 </div>
-<div>
-
+<div class="row mx-3">
+    <div class="col-lg-3 col-4 col-sm-6">
+        <form action="{% url 'reviews:leave_review' pk=place.id %}" method="post">
+            {% csrf_token %}
+            {{ review_form }}
+            <input class="btn btn-success mt-2" type="submit" value="Submit">
+        </form>
+    </div>
 </div>
 </body>
 </html>

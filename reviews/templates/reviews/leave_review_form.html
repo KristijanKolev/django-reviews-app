@@ -1,0 +1,27 @@
+{{ form.non_filed_errors }}
+<div class="field-wrapper">
+    {{ form.score.errors }}
+    <label for="{{ form.score.id_for_label }}">Score: </label>
+    <select id="{{ form.score.id_for_label }}"
+            name="{{ form.score.html_name }}"
+            class="form-control">
+        {% with ''|center:10 as range %}
+            {% for _ in range %}
+                <option value="{{ forloop.counter }}">
+                    {{ forloop.counter }}
+                </option>
+            {% endfor %}
+        {% endwith %}
+    </select>
+</div>
+
+<div class="field-wrapper">
+    {{ form.comment.errors }}
+    <label for="{{ form.comment.id_for_label }}">Comment: </label>
+    <textarea
+            id="{{ form.comment.id_for_label }}"
+            name="{{ form.comment.html_name }}"
+            maxlength="{{ form.score.filed.max_length }}"
+            class="form-control"
+    ></textarea>
+</div>

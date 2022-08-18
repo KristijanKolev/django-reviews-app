@@ -18,12 +18,12 @@ class Place(models.Model):
 
 
 class Review(models.Model):
+    score = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
+    comment = models.CharField(max_length=500)
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
     )
-    score = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
-    comment = models.CharField(max_length=500)
     place = models.ForeignKey(Place, on_delete=models.CASCADE)
 
     def __str__(self):
