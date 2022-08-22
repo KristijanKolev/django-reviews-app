@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.conf import settings
@@ -8,7 +10,7 @@ from django.conf import settings
 class Place(models.Model):
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=500)
-    date_created = models.DateField(auto_now_add=True)
+    date_created = models.DateTimeField(default=datetime.datetime.now)
 
     def __str__(self):
         return self.name

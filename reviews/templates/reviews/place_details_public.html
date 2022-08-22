@@ -23,7 +23,7 @@
     <div class="mx-3">
         <h5>Reviews:</h5>
         {% for review in place.review_set.all %}
-            <div class="border border-secondary p-2 m-2">
+            <div class="shadow-sm border p-2 m-2">
                 <div>
                     <strong>
                         {% if review.author.first_name and review.author.last_name %}

@@ -19,10 +19,11 @@ class AllPlacesView(generic.ListView):
 
     def get_queryset(self):
         search_term = self.request.GET.get('search')
+        query_set = super().get_queryset()
         if search_term:
-            return Place.objects.filter(name__icontains=search_term)
-        else:
-            return Place.objects.all()
+            query_set = query_set.filter(name__icontains=search_term)
+        return query_set.order_by('-date_created')
+
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
