@@ -12,6 +12,24 @@ from .forms import ReviewForm
 class AllPlacesView(generic.ListView):
     model = Place
     template_name = 'reviews/all_places.html'
+    default_page_size = 5
+
+    def get_paginate_by(self, queryset):
+        return self.request.GET.get("page_size", self.default_page_size)
+
+    def get_queryset(self):
+        search_term = self.request.GET.get('search')
+        if search_term:
+            return Place.objects.filter(name__icontains=search_term)
+        else:
+            return Place.objects.all()
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        search_term = self.request.GET.get('search')
+        if search_term:
+            context['search'] = search_term
+        return context
 
 
 class PlaceDetailsPublic(LoginRequiredMixin, generic.DetailView):

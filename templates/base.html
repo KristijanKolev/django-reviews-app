@@ -20,21 +20,21 @@
 <body>
 <div id="body-container">
     {% block sidebar %}
-        <div id="sidebar">
-            <div>
-                <a href="{% url 'reviews:places_all' %}">
-                    <i class="fa fa-home">Home</i>
-                </a>
-            </div>
-            <div>
-                <a href="{% url 'user_management:logout' %}">
-                    <i class="fa fa-sign-out">Sign Out</i>
-                </a>
-            </div>
+        <div id="sidebar" class="border-right">
+            <a class="sidebar-button shadow-sm" href="{% url 'reviews:places_all' %}">
+                <i class="fa fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a class="sidebar-button shadow-sm" href="{% url 'user_management:logout' %}">
+                <i class="fa fa-sign-out"></i>
+                <span>Sign Out</span>
+            </a>
         </div>
     {% endblock %}
-    <div id="main-container">
-        <h2 id="content-header">{% block header %}{% endblock %}</h2>
+    <div id="main-container" class="px-4">
+        <div id="content-header">
+            <h2>{% block header %}{% endblock %}</h2>
+        </div>
         <div id="content">
             {% block content %}
 

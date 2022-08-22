@@ -1,0 +1,15 @@
+#search-form {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    margin-bottom: 20px;
+}
+
+#search-box-container {
+    flex-grow: 1
+}
+
+#search-submit-container {
+    padding-left: 10px;
+    flex: 0 0 100px;
+}

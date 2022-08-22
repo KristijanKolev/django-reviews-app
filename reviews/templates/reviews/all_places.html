@@ -1,20 +1,59 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
     Homepage
 {% endblock %}
 
+{% block head-extra %}
+    <link rel="stylesheet" href="{% static 'reviews/css/all_places.css' %}">
+{% endblock %}
+
+{% block header %}
+    All places
+{% endblock %}
+
 {% block content %}
-    {% if place_list %}
-        <ul>
-            {% for place in place_list %}
-                {#        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>#}
-                <li>
-                    <a href="{% url 'reviews:place_details_public' place.id %}">{{ place.name }}
-                        - {{ place.description }}</a>
-                </li>
-            {% endfor %}
-        </ul>
+    <form action="" method="get">
+            <div id="search-form">
+                <div id="search-box-container">
+                    <label for="search" hidden></label>
+                    <input type="text" class="form-control" id="search" name="search" value="{{ search }}"/>
+                </div>
+                <div id="search-submit-container">
+                    <input type="submit" value="Submit" class="form-control"/>
+                </div>
+            </div>
+        </form>
+    {% if page_obj %}
+        <div>
+            <ul>
+                {% for place in page_obj %}
+                    {#        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>#}
+                    <li>
+                        <a href="{% url 'reviews:place_details_public' place.id %}">{{ place.name }}
+                            - {{ place.description }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1&search={{ search }}">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}&search={{ search }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}&search={{ search }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}&search={{ search }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
     {% else %}
         <p>No places are available.</p>
     {% endif %}
