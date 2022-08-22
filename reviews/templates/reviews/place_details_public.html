@@ -1,53 +1,52 @@
+{% extends 'base.html' %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% static 'fa/css/all.min.css' %}">
-    <link rel="stylesheet" href="{% static 'reviews/place_details_public.css' %}">
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+{% block head-extra %}
+    <link rel="stylesheet" href="{% static 'reviews/css/place_details_public.css' %}">
+{% endblock %}
 
-    <title>{{ place.name }}</title>
-</head>
-<body>
-<div id="title-row">
-    <h3>
-        {{ place.name }} - <span class="badge badge-secondary">{{ place.average_review_score }}</span>
-    </h3>
-    <h4 class="text-secondary">
-        {{ place.description }}
-    </h4>
-</div>
-<div class="mx-3">
-    <h5>Reviews:</h5>
-    {% for review in place.review_set.all %}
-        <div class="border border-secondary p-2 m-2">
-            <div>
-                <strong>
-                    {% if review.author.first_name and review.author.last_name %}
-                        {{ review.author.first_name }} {{ review.author.last_name }}
-                    {% else %}
-                        {{ review.author.username }}
-                    {% endif %}
-                </strong>
-                <span class="badge badge-primary">{{ review.score }}</span>
-            </div>
-            <div>
-                {{ review.comment }}
-            </div>
-        </div>
-    {% endfor %}
-</div>
-<div class="row mx-3">
-    <div class="col-lg-3 col-4 col-sm-6">
-        <form action="{% url 'reviews:leave_review' pk=place.id %}" method="post">
-            {% csrf_token %}
-            {{ review_form }}
-            <input class="btn btn-success mt-2" type="submit" value="Submit">
-        </form>
+{% block title %} {{ place.name }} {% endblock %}
+
+{% block header %}
+    {# left empty because custom header is used #}
+{% endblock %}
+
+{% block content %}
+    <div id="title-row">
+        <h3>
+            {{ place.name }} - <span class="badge badge-secondary">{{ place.average_review_score }}</span>
+        </h3>
+        <h4 class="text-secondary">
+            {{ place.description }}
+        </h4>
     </div>
-</div>
-</body>
-</html>
+    <div class="mx-3">
+        <h5>Reviews:</h5>
+        {% for review in place.review_set.all %}
+            <div class="border border-secondary p-2 m-2">
+                <div>
+                    <strong>
+                        {% if review.author.first_name and review.author.last_name %}
+                            {{ review.author.first_name }} {{ review.author.last_name }}
+                        {% else %}
+                            {{ review.author.username }}
+                        {% endif %}
+                    </strong>
+                    <span class="badge badge-primary">{{ review.score }}</span>
+                </div>
+                <div>
+                    {{ review.comment }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="row mx-3">
+        <div class="col-lg-3 col-4 col-sm-6">
+            <form action="{% url 'reviews:leave_review' pk=place.id %}" method="post">
+                {% csrf_token %}
+                {{ review_form }}
+                <input class="btn btn-success mt-2" type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+{% endblock %}

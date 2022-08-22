@@ -1,0 +1,12 @@
+#body-container {
+    display: flex;
+}
+
+#sidebar {
+    flex: 0 250px;
+    list-style: none;
+}
+
+#main-container {
+    flex-grow: 1;
+}

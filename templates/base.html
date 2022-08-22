@@ -1,0 +1,48 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'fa/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    {% block head-extra %}
+
+    {% endblock %}
+    <title>
+        {% block title %}
+            Reviews App
+        {% endblock %}
+    </title>
+</head>
+<body>
+<div id="body-container">
+    {% block sidebar %}
+        <div id="sidebar">
+            <div>
+                <a href="{% url 'reviews:places_all' %}">
+                    <i class="fa fa-home">Home</i>
+                </a>
+            </div>
+            <div>
+                <a href="{% url 'user_management:logout' %}">
+                    <i class="fa fa-sign-out">Sign Out</i>
+                </a>
+            </div>
+        </div>
+    {% endblock %}
+    <div id="main-container">
+        <h2 id="content-header">{% block header %}{% endblock %}</h2>
+        <div id="content">
+            {% block content %}
+
+            {% endblock %}
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
