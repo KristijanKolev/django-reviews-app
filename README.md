@@ -1,2 +1,1 @@
-# demo-reveiws-app
-Demo Django application
+# django-reveiws-app
