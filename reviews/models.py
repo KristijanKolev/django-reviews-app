@@ -1,8 +1,7 @@
-import datetime
-
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.conf import settings
+from django.utils import timezone
 
 # Create your models here.
 
@@ -10,7 +9,7 @@ from django.conf import settings
 class Place(models.Model):
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=500)
-    date_created = models.DateTimeField(default=datetime.datetime.now)
+    date_created = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.name
