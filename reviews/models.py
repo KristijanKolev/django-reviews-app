@@ -18,6 +18,9 @@ class Place(models.Model):
         return sum(review.score for review in
                    self.review_set.all()) / self.review_set.count() if self.review_set.count() > 0 else None
 
+    def sorted_reviews(self):
+        return self.review_set.all().order_by('-id')
+
 
 class Review(models.Model):
     score = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
