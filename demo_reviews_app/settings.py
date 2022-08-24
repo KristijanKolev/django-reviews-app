@@ -135,3 +135,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = 'user_management:login'
 LOGIN_REDIRECT_URL = '/'
+
+MEDIA_URL = "/home/kristijan/Work/Django-projects/demo-reviews-app/media/"
+MEDIA_ROOT = BASE_DIR / "media"
