@@ -39,6 +39,9 @@
                     <div>
                         {{ review.comment }}
                     </div>
+                    <div class="date-created-box text-secondary font-weight-bolder font">
+                        {{ review.date_created | timesince }} ago
+                    </div>
                 </div>
             </div>
         {% endfor %}
