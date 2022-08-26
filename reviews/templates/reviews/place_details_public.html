@@ -23,19 +23,22 @@
     <div class="mx-3">
         <h5>Reviews:</h5>
         {% for review in place.sorted_reviews %}
-            <div class="shadow-sm border p-2 m-2">
-                <div>
-                    <strong>
-                        {% if review.author.first_name and review.author.last_name %}
-                            {{ review.author.first_name }} {{ review.author.last_name }}
-                        {% else %}
-                            {{ review.author.username }}
-                        {% endif %}
-                    </strong>
-                    <span class="badge badge-primary">{{ review.score }}</span>
-                </div>
-                <div>
-                    {{ review.comment }}
+            <div class="comment-box shadow-sm border p-2 m-2">
+                <img src="/media/{{ review.author.profile.profile_picture }}" alt="" class="m-1">
+                <div class="comment-text">
+                    <div>
+                        <strong>
+                            {% if review.author.first_name and review.author.last_name %}
+                                {{ review.author.first_name }} {{ review.author.last_name }}
+                            {% else %}
+                                {{ review.author.username }}
+                            {% endif %}
+                        </strong>
+                        <span class="badge badge-primary">{{ review.score }}</span>
+                    </div>
+                    <div>
+                        {{ review.comment }}
+                    </div>
                 </div>
             </div>
         {% endfor %}
