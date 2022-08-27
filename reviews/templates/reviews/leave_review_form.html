@@ -1,29 +1,27 @@
 {{ form.non_filed_errors }}
 <div class="field-wrapper">
     <label for="{{ form.score.id_for_label }}">Score: </label>
-{#        <select id="{{ form.score.id_for_label }}"#}
-{#                name="{{ form.score.html_name }}"#}
-{#                class="form-control"#}
-{#        >#}
-{#            {% with ''|center:10 as range %}#}
-{#                {% for _ in range %}#}
-{#                    <option#}
-{#                            value="{{ forloop.counter }}"#}
-{#                            {% if forloop.counter == form.score.value %}#}
-{#                            selected#}
-{#                            {% endif %}#}
-{#                    >#}
-{#                        {{ forloop.counter }}#}
-{#                    </option>#}
-{#                {% endfor %}#}
-{#            {% endwith %}#}
-{#        </select>#}
+    {#        <select id="{{ form.score.id_for_label }}"#}
+    {#                name="{{ form.score.html_name }}"#}
+    {#                class="form-control"#}
+    {#        >#}
+    {#            {% with ''|center:10 as range %}#}
+    {#                {% for _ in range %}#}
+    {#                    <option#}
+    {#                            value="{{ forloop.counter }}"#}
+    {#                            {% if forloop.counter == form.score.value %}#}
+    {#                            selected#}
+    {#                            {% endif %}#}
+    {#                    >#}
+    {#                        {{ forloop.counter }}#}
+    {#                    </option>#}
+    {#                {% endfor %}#}
+    {#            {% endwith %}#}
+    {#        </select>#}
     <input type="text" id="{{ form.score.id_for_label }}"
-                name="{{ form.score.html_name }}"
-                class="form-control"
-           {% if form.score.value != None %}
-                value="{{ form.score.value }}"
-           {% endif %}
+           name="{{ form.score.html_name }}"
+           class="form-control"
+           value="{{ form.score.value|default_if_none:'' }}"
     />
     <span class="text-danger">{{ form.score.errors }}</span>
 </div>
@@ -37,9 +35,7 @@
             class="form-control"
     >
     </textarea>
-        {% if form.comment.value != None %}
-                {{ form.comment.value }}
-           {% endif %}
+    {{ form.comment.value|default_if_none:'' }}
     <span class="text-danger">{{ form.comment.errors }}</span>
 
 </div>

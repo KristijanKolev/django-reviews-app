@@ -1,27 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-</head>
-<body>
-<form action="{% url 'user_management:login' %}" method="post">
-    {% csrf_token %}
-    <input name="success_redirect_url" value="{{ success_redirect_url }}" hidden/>
-    <div>
-        <label for="username">Username: </label>
-        <input type="text" name="username" id="username"/>
+{% extends 'user_management/auth_form_base.html' %}
+{% load crispy_forms_filters %}
+
+{% block title %}Login{% endblock %}
+
+{% block header %}Login{% endblock %}
+
+{% block form_container %}
+    <form action="{% url 'user_management:login' %}" method="post">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <div>
+            <input type="submit" value="Sign In" class="btn btn-primary"/>
+        </div>
+    </form>
+    <div class="text-right">
+        Dont have an account?
+        <a href="{% url 'user_management:signup' %}" class="text-secondary">Click here to sign up</a>.
     </div>
-    <div>
-        <label for="password">Password: </label>
-        <input type="password" name="password" id="password"/>
-    </div>
-    <div>
-        <input type="submit" value="Sign In" />
-    </div>
-</form>
-{% if error_message %}
-    <div style="color: red">{{ error_message }}</div>
-{% endif %}
-</body>
-</html>
+    {% if error_message %}
+        <div style="color: red">{{ error_message }}</div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'user_management/auth_form_base.html' %}
+{% load crispy_forms_filters %}
+
+{% block title %}Sign up{% endblock %}
+
+{% block header %}Create your Reviews-app account{% endblock %}
+
+{% block form_container %}
+    <form action="{% url 'user_management:signup' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <div>
+            <input type="submit" value="Sign Up" class="btn btn-primary" />
+        </div>
+    </form>
+    {% if error_message %}
+        <div style="color: red">{{ error_message }}</div>
+    {% endif %}
+{% endblock %}

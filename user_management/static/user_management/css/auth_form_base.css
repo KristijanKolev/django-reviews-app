@@ -1,0 +1,15 @@
+h2 {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+#form-container {
+    width: 90vw;
+    max-width: 600px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 10px 20px;
+    background-color: lightsteelblue;
+    border-radius: 10px;
+    border: solid steelblue 1px;
+}

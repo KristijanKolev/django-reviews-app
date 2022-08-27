@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'reviews.apps.ReviewsConfig',
-    'user_management.apps.UserManagementConfig'
+    'user_management.apps.UserManagementConfig',
+    'crispy_forms'
 ]
 
 MIDDLEWARE = [
@@ -126,6 +127,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
     os.path.join(BASE_DIR, 'reviews/static'),
+    os.path.join(BASE_DIR, 'user_management/static'),
 ]
 
 # Default primary key field type
@@ -138,3 +140,5 @@ LOGIN_REDIRECT_URL = '/'
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

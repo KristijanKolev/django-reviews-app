@@ -1,0 +1,20 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'fa/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'user_management/css/auth_form_base.css' %}">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+<h2 class="text-center">
+    {% block header %}{% endblock %}
+</h2>
+<div id="form-container">
+    {% block form_container %} {% endblock %}
+</div>
+</body>
+</html>
