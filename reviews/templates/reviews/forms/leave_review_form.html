@@ -17,8 +17,8 @@
             maxlength="{{ form.comment.field.max_length }}"
             class="form-control"
     >
+            {{ form.comment.value|default_if_none:'' }}
     </textarea>
-    {{ form.comment.value|default_if_none:'' }}
     <span class="text-danger">{{ form.comment.errors }}</span>
 
 </div>

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Editing {{ place.name }}
+{% endblock %}
+
+{% block header %}
+    Editing {{ place.name }}
+{% endblock %}
+
+{% block content %}
+    <div style="max-width: 750px;">
+        <form action="{% url 'reviews:edit_place' pk=place.id %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input class="btn btn-success mt-2" type="submit" value="Save Changes">
+        </form>
+    </div>
+{% endblock %}
