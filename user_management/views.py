@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.db import transaction
+from django.db import transaction, IntegrityError
 
 from .forms import LoginForm, RegisterUserForm
 from .models import Profile
@@ -21,8 +21,6 @@ def basic_login(request):
                 return HttpResponseRedirect(form.cleaned_data['success_redirect_url'])
             else:
                 context['error_message'] = 'Username or password incorrect!'
-        else:
-            context['error_message'] = 'Invalid input data!'
     else:
         form = LoginForm(initial={'success_redirect_url': request.GET.get('next', '/')})
         context['form'] = form
@@ -37,20 +35,23 @@ def user_signup(request):
         form = RegisterUserForm(data=request.POST, files=request.FILES)
         context['form'] = form
         if form.is_valid():
-            new_user = User(username=form.cleaned_data['username'], email=form.cleaned_data['email'])
-            new_user.set_password(form.cleaned_data['password'])
-            new_user.save()
-            profile = Profile(user=new_user, bio=form.cleaned_data.get('bio'))
-            uploaded_image = request.FILES.get('profile_picture')
-            if uploaded_image is not None:
-                file_type_extension = uploaded_image.name.split('.')[-1]
-                uploaded_image.name = f'pp_{new_user.username}.{file_type_extension}'
-                profile.profile_picture = uploaded_image
-            profile.save()
+            try:
+                new_user = User(username=form.cleaned_data['username'], email=form.cleaned_data['email'])
+                new_user.set_password(form.cleaned_data['password'])
+                new_user.save()
+                profile = Profile(user=new_user, bio=form.cleaned_data.get('bio'))
+                uploaded_image = request.FILES.get('profile_picture')
+                if uploaded_image is not None:
+                    file_type_extension = uploaded_image.name.split('.')[-1]
+                    uploaded_image.name = f'pp_{new_user.username}.{file_type_extension}'
+                    profile.profile_picture = uploaded_image
+                profile.save()
 
-            login(request, new_user)
+                login(request, new_user)
 
-            return HttpResponseRedirect(reverse('reviews:places_all'))
+                return HttpResponseRedirect(reverse('reviews:places_all'))
+            except IntegrityError as e:
+                form.add_error('username', 'Name already taken! Try a different one.')
 
     else:
         context['form'] = RegisterUserForm()
