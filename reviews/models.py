@@ -10,6 +10,12 @@ class Place(models.Model):
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=500)
     date_created = models.DateTimeField(default=timezone.now)
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='owned_places'
+    )
+    editors = models.ManyToManyField(settings.AUTH_USER_MODEL)
 
     def __str__(self):
         return self.name
@@ -33,4 +39,4 @@ class Review(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.place.name}: {self.score}'
+        return f'{self.place.name}: {self.author} - {self.score}'
